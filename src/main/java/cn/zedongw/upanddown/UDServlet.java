@@ -58,9 +58,6 @@ public class UDServlet extends HttpServlet {
         //获取文件名
         String fileName = req.getParameter("fileName");
 
-        //获取下载文件的路径
-        String path = getServletContext().getRealPath("/upload");
-
         //设置下载响应头
         resp.setHeader("content-disposition","attachment;fileName=" + fileName);
 
@@ -71,6 +68,9 @@ public class UDServlet extends HttpServlet {
         ServletOutputStream outputStream = null;
 
         try {
+            //文件路径
+            String path = UDServlet.class.getClassLoader().getResource("/upload/").getPath();
+
             fileInputStream = new FileInputStream(new File(path, fileName));
 
             outputStream = resp.getOutputStream();
@@ -114,8 +114,8 @@ public class UDServlet extends HttpServlet {
         //创建文件下载Map
         Map<String, String> fileNames = new HashMap<>();
 
-        //获取文件上传目录
-        String path = getServletContext().getRealPath("/upload");
+        //文件路径
+        String path = UDServlet.class.getClassLoader().getResource("/upload/").getPath();
 
         //获取目录下所有文件名
         String[] list = new File(path).list();
@@ -144,6 +144,7 @@ public class UDServlet extends HttpServlet {
      * @return: void
      */
     private void upload(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         //创建工厂对象
         DiskFileItemFactory fac = new DiskFileItemFactory();
 
@@ -176,8 +177,8 @@ public class UDServlet extends HttpServlet {
                         //拼接唯一文件名
                         name = id + name;
 
-                        //获取上传目录
-                        String path =req.getSession().getServletContext().getRealPath("/upload");
+                        //文件路径
+                        String path = UDServlet.class.getClassLoader().getResource("/upload/").getPath();
 
                         //需要上传的文件对象
                         File file = new File(path, name);

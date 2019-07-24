@@ -13,7 +13,7 @@
 <body>
     <div align="center" >
         <form action="${pageContext.request.contextPath}/ud?method=upload" method="post" enctype="multipart/form-data">
-            文件：<input type="file" name="file"/><br/><br/>
+            文件：<input type="file" name="file"/><br/>
             <input type="submit" value="提交">
         </form>
     </div>
